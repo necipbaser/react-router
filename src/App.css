@@ -3,3 +3,7 @@
 a.active{
   background-color: yellow;
 }
+
+a{
+  margin-right: 10px;
+}

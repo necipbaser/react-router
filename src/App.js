@@ -8,44 +8,37 @@ import Blog from "./Pages/Blog/Blog"
 import BlogLayout from "./Pages/Blog/index";
 import Page404 from "./Pages/Page404";
 import Blog404 from "./Pages/Blog/Blog404"
+import Profile from "./Pages/Profile";
+import PrivateRoute from "./components/PrivateRoute";
+import AuthLayout from "./Pages/Auth/AuthLayout";
+import Login from "./Pages/Auth/Login";
+import HomeLayout from "./Pages/HomeLayout";
+
 function App() {
-  return (
-    <div className="App">
-     <>
-        <nav>
-            {/*bu şekilde sayfa yenileniyor*/}
-            {/*<a href="/">Ana Sayfa</a>*/}
-            {/*<a href="/contact">İletişim</a>*/}
-            {/*<a href="/blog">Blog</a>*/}
-
-            {/*active class vs. eklenmiyor*/}
-            {/*<Link to="/">Ana Sayfa</Link>*/}
-            {/*<Link to="/contact">İletişim</Link>*/}
-            {/*<Link to="/blog">Blog</Link>*/}
-
-            {/*<NavLink to="/" className={({isActive})=>isActive && 'aktif'}>Ana sayfa</NavLink>*/}
-
-            <NavLink to="/">Ana sayfa</NavLink>
-            <NavLink to="/contact">İletişim</NavLink>
-            <NavLink to="/blog">Blog</NavLink>
-
-        </nav>
-         <Routes>
-             <Route path="/" element={<Home/>} />
-             <Route path="/contact" element={<Contact />} />
-             <Route path="/blog" element={<BlogLayout />}>
-                 <Route index={true} element={<Blog />} />
-                 <Route path="categories" element={<Categories />}/>
-                 {/*<Route path="post/:id/:url" element={<Post />}/>*/}
-                 <Route path="post/:url" element={<Post />}/>
-                 <Route path="*" element={<Blog404 />}/>
-             </Route>
-
-             <Route path="*" element={<Page404 />}/>
-         </Routes>
-     </>
-    </div>
-  );
+    return (
+        <div className="App">
+            <>
+                <Routes>
+                    <Route path="/" element={<HomeLayout/>}>
+                        <Route index={true} element={<Home/>}/>
+                        <Route path="contact" element={<Contact/>}/>
+                        <Route path="blog" element={<BlogLayout/>}>
+                            <Route index={true} element={<Blog/>}/>
+                            <Route path="categories" element={<Categories/>}/>
+                            {/*<Route path="post/:id/:url" element={<Post />}/>*/}
+                            <Route path="post/:url" element={<Post/>}/>
+                            <Route path="*" element={<Blog404/>}/>
+                        </Route>
+                        <Route path="/profile" element={<PrivateRoute><Profile/></PrivateRoute>}/>
+                    </Route>
+                    <Route path="/auth" element={<AuthLayout/>}>
+                        <Route path="login" element={<Login/>}/>
+                    </Route>
+                    <Route path="*" element={<Page404/>}/>
+                </Routes>
+            </>
+        </div>
+    );
 }
 
 export default App;
